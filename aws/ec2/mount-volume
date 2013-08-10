@@ -26,4 +26,5 @@ mount -l
 #/dev/xvdf       /mnt-data   auto    defaults,nobootwait     0       0
 sudo nano  /etc/fstab
 
+# AWS Console shows /dev/xvdf as /dev/sdf
 
