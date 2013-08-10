@@ -1,4 +1,4 @@
-Server Management
+cloudY
 =================
 
 This repository contains shell scripts, code snippets and tutorials for setting up and managing Linux server
