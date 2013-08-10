@@ -45,13 +45,23 @@ if [[ ( "$set_mysql_dir" = y ) ]]
 then
 	# Create required directories
 	printf "\nStopping mysql server...\n"
+	service mysql stop
+	printf "\nEnter path of the new data directory (e.g. /mnt)\n"
+	printf "> "
+	read read_mysql_dir
+	printf "\nMoving mysql files to new location \n"
+	sudo mv /var/lib/mysql $read_mysql_dir/
 	printf "\nPlease modify config file\n"
 	printf "\n\n modify datadir under [mysqld] \n\n"
 	printf "\n set datadir=NEW_PATH/mysql \n\n"
-	service mysql stop
 	nano /etc/mysql/my.cnf
 	printf "\nVerify changes\n"
 	printf "grep datadir /etc/mysql/my.cnf"
+	printf "\nPlease modify apparmor config\n"
+	printf "\n[/var/lib/mysql r] to [NEW_PATH/mysql r]\n"
+	printf "\n[/var/lib/mysql/** rwk] to [NEW_PATH/mysql ** rwk]\n"
+	nano /etc/apparmor.d/usr.sbin.mysqld
+	/etc/init.d/apparmor reload
 	printf "\n\n Starting mysql... \n\n"
 	service mysql start
 else
