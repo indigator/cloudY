@@ -25,7 +25,7 @@ shopt -s nocasematch
 #################################################
 printf "Checking UID...\n"
 if (( EUID != 0 )); then
-  printf "You must be root to do this, Please use './config-mongodb'.\n" 1>&2
+	printf "You must be root to do this, Please use './config-mongodb'.\n" 1>&2
 	exit 10
 else
 	printf "User is root ...\n"
@@ -34,7 +34,7 @@ fi
 #################################################
 # User confirmation
 #################################################
-printf "\nDo you want to set data & tmp directory (y/n)\n"
+printf "\n Do you want to set data & tmp directory (y/n) \n"
 printf "> "
 	read set_mongodb_dir
 
@@ -44,24 +44,24 @@ printf "> "
 if [[ ( "$set_mongodb_dir" = y ) ]]
 then
 	# Create required directories
-	printf "\nEnter path of the new data directory (e.g. /mnt)\n"
+	printf "\n Enter path of the new data directory (e.g. /mnt) \n"
 	printf "> "
 	read read_mongodb_dir
 	mkdir -p $read_mongodb_dir/data/
 	mkdir -p $read_mysql_dir/log/
 	chown -R mongodb:nogroup $read_mongodb_dir
 	
-	printf "\nDirectories created and permissions set\n"
-	printf "\nStopping mongldb...\n"
-	printf "\nPlease modify config file\n"
+	printf "\n Directories created and permissions set \n"
+	printf "\n Stopping mongldb... \n"
+	printf "\n Please modify config file \n"
 	printf "\n\n modify dbpath & logpath \n\n"
 	service mongodb stop
-	nano /etc/init/mongodb.conf
-	printf "\nVerify changes\n"
-	printf "\ngrep dbpath /etc/init/mongodb.conf\n"
-	printf "\ngrep logpath /etc/init/mongodb.conf\n"
+	nano /etc/mongodb.conf
+	printf "\n Verify changes\n"
+	printf "\n grep dbpath /etc/mongodb.conf \n"
+	printf "\n grep logpath /etc/mongodb.conf \n"
 	printf "\n\n Starting mongldb... \n\n"
 	service mongodb start
 else
-		printf "You selected to exit ...\n"
+		printf "\n You selected to exit ...\n"
 fi
