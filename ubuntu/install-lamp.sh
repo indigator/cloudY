@@ -94,9 +94,9 @@ then
 
 	if [[ ( "$serv_local" = y ) ]]
 	then
-		echo "ServerName localhost" >> /etc/apache2/conf.d/fqdn
+		echo "ServerName localhost" >> /etc/apache2/httpd.conf
 	else
-		printf "Nothing was added to /etc/apache2/conf.d/fqdn ...\n"
+		printf "Nothing was added to /etc/apache2/httpd.conf ...\n"
 	fi
 	
 	printf "\nWould you like to install zip and unzip (y/n)\n"
