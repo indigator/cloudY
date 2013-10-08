@@ -33,8 +33,8 @@ fi
 #################################################
 # Installing LAMP or Debugging?
 #################################################
-printf "\nAre you installing an existing scrapy server?\n"
-printf "(I)nstalling mongodb server.\n"
+printf "\nAre you sure you wanna install scrapy?\n"
+printf "(I)nstall scrapy.\n"
 printf "(Q)uit.\n"
 printf "> "
 	read install_debug_rm
