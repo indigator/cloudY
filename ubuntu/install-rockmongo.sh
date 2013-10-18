@@ -43,6 +43,7 @@ printf "> "
 if [[ ( "$set_install_opt" = y ) ]]
 then
 	printf "\nInstalling pre-requisite php_mongo ...\n"
+	apt-get install make
 	sudo pecl install mongo
 	printf "\nAdd mongo.so to php.ini [line: 944] to load this extension...\n"
 	printf "\nInstalling rockmongo ...\n"
@@ -52,7 +53,7 @@ then
 	wget http://rockmongo.com/release/rockmongo-1.1.5.zip
 	unzip rockmongo-1.1.5.zip
 	mkdir -p /usr/share/rockmongo/
-	cp –r /srv/rockmongo/rockmongo/* /usr/share/rockmongo/
+	cp –r /srv/rockmongo/rockmongo/ /usr/share/rockmongo/
 	cd /var/www/ 
 	ln -s /usr/share/rockmongo
 	printf "\nrockmongo is installed\n"
