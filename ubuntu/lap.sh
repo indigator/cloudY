@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Updated: 12-Aug-2013
+# Updated: 4-Aug-2016
 #
 # Installs, debugs, or removes a LAMP server stack without mysql server.
 # Will also help configure the server.
@@ -48,49 +48,32 @@ if [[ ( "$install_debug_rm" = i ) ]]
 then
 	# Update and Upgrade
 	printf "\nUpdating ...\n"
-	apt-get -qqq update
-	
-	printf "\nSetting Timezone ...\n"
-	echo "Asia/Kolkata" | sudo tee /etc/timezone
-	sudo dpkg-reconfigure --frontend noninteractive tzdata
+	sudo apt-get -qqq update
 	
 	##############################
 	#  Install required packages #
 	##############################
 	# For on-screen installation log : apt-get -qqq 
 	
-	printf "\nInstalling LAMP stack...\n"
-	apt-get -qqq install apache2 apache2-doc apache2-utils libapache2-mod-php5 php5 php-pear php5-xcache php5-gd php5-mcrypt php5-mysql curl libcurl3 libcurl3-dev php5-curl
+	printf "\nInstalling LAP stack...\n"
+	sudo apt-get -qqq install apache2 apache2-doc apache2-utils libapache2-mod-php5 php5 php-pear php5-xcache php5-gd php5-mcrypt php5-mysql curl libcurl3 libcurl3-dev php5-curl mysql-client
 	
 	printf "\Enabling apache mods...\n"
-	a2enmod rewrite
-	a2enmod expires
-	a2enmod headers
+	sudo a2enmod rewrite
+	sudo a2enmod expires
+	sudo a2enmod headers
 
 	#############################
 	#     Configure packages    #
 	#############################
 
-	printf "\nWould you like to add 'ServerName localhost' to /etc/apache2/conf.d/fqdn? (y/n)\n"
-	printf "If this is a development box or you're not sure type y to be safe.\n"
-	printf "> "
-	read serv_local
-
-	if [[ ( "$serv_local" = y ) ]]
-	then
-		echo "ServerName localhost" >> /etc/apache2/conf.d/fqdn
-	else
-		printf "Nothing was added to /etc/apache2/conf.d/fqdn ...\n"
-	fi
-	
 	printf "\nWould you like to install zip and unzip (y/n)\n"
 	printf "> "
 	read serv_local_zip
 
 	if [[ ( "$serv_local_zip" = y ) ]]
 	then
-		apt-get install unzip
-		apt-get install zip
+		sudo apt-get install zip
 	else
 		printf "\nzip and unzip not installed...\n"
 	fi
@@ -99,7 +82,7 @@ then
 	#   Restart Apache   #
 	######################
 	printf "\nRestarting apache2 ...\n"
-	/etc/init.d/apache2 restart
+	sudo /etc/init.d/apache2 restart
 
 	# Unset casematch
 	shopt -u nocasematch

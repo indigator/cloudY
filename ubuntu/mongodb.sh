@@ -1,11 +1,11 @@
 #!/bin/bash
 #
-# Updated: 10-Aug-2013
+# Updated: 4-Aug-2016
 #
 # Installs or removes mongodb.
 #
 # By Saurabh Sudhir
-# 2013
+# 2016
 
 #################################################
 # Header/name
@@ -24,7 +24,7 @@ shopt -s nocasematch
 #################################################
 printf "Checking UID...\n"
 if (( EUID != 0 )); then
-  printf "You must be root to do this, Please use 'sudo ./install-mongo'.\n" 1>&2
+  printf "You must be root to do this, Please use 'sudo ./mongo'.\n" 1>&2
 	exit 10
 else
 	printf "User is root ...\n"
@@ -45,20 +45,18 @@ printf "> "
 #################################################
 if [[ ( "$install_debug_rm" = i ) ]]
 then
-	sudo apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
-	cat > /etc/apt/sources.list.d/mongodb.list << EOF
-deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen
-EOF
+	sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv EA312927
+	echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.2.list
 	
 	# Update and Upgrade
 	printf "\nUpdating ...\n"
-	apt-get -qqq update
-	printf "\n Installing mongodb...\n"
-	apt-get -qqq install mongodb-10gen
-	printf "\nmongodb installed"
-	printf "\n Installing python connector...\n"
-	apt-get -qqq install python-pip
-	pip install pymongo
+	sudo apt-get -qqq update
+	
+	printf "\n Installing mongo...\n"
+	sudo apt-get install -y mongodb-org
+	printf "\nmongo installed"
+	printf "\nchecking version.....\n"
+	mongod --version
 fi
 
 #################################################
@@ -66,10 +64,15 @@ fi
 #################################################
 if [[ ( "$install_debug_rm" = r ) ]]
 then
-	printf "Removing mongodb server ...\n"
+	printf "Stopping mongo server ...\n"
+	sudo service mongod stop
 	
-	sudo apt-get purge -qqq mongodb
-	printf "mongodb server removed ...\n"
+	printf "Removing mongo server ...\n"
+	sudo apt-get purge mongodb-org*
+	printf "mongo server removed ...\n"
+	printf "Removing data directories ...\n"
+	sudo rm -r /var/log/mongodb
+	sudo rm -r /var/lib/mongodb
 	# Unset casematch
 	shopt -u nocasematch
 	exit 0
