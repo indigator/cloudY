@@ -57,7 +57,7 @@ then
 	# For on-screen installation log : apt-get -qqq 
 	
 	printf "\nInstalling LAMP stack...\n"
-	udo apt-get -qqq install apache2 apache2-doc apache2-utils libapache2-mod-php5 php5 php-pear php5-xcache php5-gd php5-mcrypt php5-mysql curl libcurl3 libcurl3-dev php5-curl
+	sudo apt-get -qqq install apache2 apache2-doc apache2-utils libapache2-mod-php5 php5 php-pear php5-xcache php5-gd php5-mcrypt php5-mysql curl libcurl3 libcurl3-dev php5-curl
 	
 	sudo apt-get -qqq install mysql-server
 	
