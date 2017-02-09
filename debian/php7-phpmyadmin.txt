@@ -1,0 +1,27 @@
+
+
+cd /home/admin/
+
+wget https://files.phpmyadmin.net/phpMyAdmin/4.6.6/phpMyAdmin-4.6.6-all-languages.zip
+
+unzip phpMyAdmin-4.6.6-all-languages.zip
+
+cd /var/www/html/
+
+sudo ln -s /home/admin/phpMyAdmin
+
+sudo apt-get install phpmyadmin php-mbstring php-gettext
+
+sudo service apache2 restart
+
+sudo apt-get purge phpmyadmin
+
+
+$ mysql -u root -p
+Enter password:
+
+mysql> use mysql
+
+mysql> GRANT ALL ON *.* to root@'172.31.0.10' IDENTIFIED BY 'ziplr@2017'; 
+
+mysql> FLUSH PRIVILEGES;

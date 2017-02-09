@@ -61,7 +61,7 @@ then
 	
 	printf "\nInstalling LAMP stack...\n"
 	sudo apt-get -qqq install apache2 apache2-doc apache2-utils curl libcurl3 libcurl3-dev mysql-client
-	sudo apt-get -qqq install php7.0 php-pear php7.0-gd php7.0-mcrypt php7.0-mysql php7.0-curl
+	sudo apt-get -qqq install php7.0 php-pear php7.0-gd mcrypt php7.0-mcrypt php7.0-mysql php7.0-curl
 	printf "\Enabling apache mods...\n"
 	sudo a2enmod rewrite
 	sudo a2enmod expires
