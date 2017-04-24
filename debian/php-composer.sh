@@ -1,11 +1,11 @@
 #!/bin/bash
 # 
-# Updated: 15-Feb-2016
+# Updated: 24-Apr-2017
 #
 # Install php-composer
 #
 # By Saurabh Sudhir
-# 2016
+# 2017
 
 #################################################
 # Header/name
@@ -44,7 +44,7 @@ if [[ ( "$set_install_opt" = y ) ]]
 then
 	printf "\nInstalling php-composer ...\n"
 	curl -sS https://getcomposer.org/installer | php
-	mv composer.phar /usr/local/bin/composer
+	sudo mv composer.phar /usr/local/bin/composer
 fi
 	
 #################################################
