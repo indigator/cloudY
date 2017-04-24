@@ -74,6 +74,10 @@ then
 	printf "\nInstalling phpmyadmin ...\n"
 	
 	sudo apt-get -qqq install phpmyadmin php-mbstring php-gettext
+	
+	cd /var/www/html/
+	sudo ln -s /usr/share/phpmyadmin
+	printf "\Enabling apache mods...\n"
 
 	######################
 	#   Restart Apache   #
@@ -107,6 +111,8 @@ then
 	
 	sudo apt-get purge -qqq apache2 apache2-doc apache2-utils curl libcurl3 libcurl3-dev mysql-client
 	sudo apt-get purge -qqq php7.0 php-pear php7.0-gd php7.0-mcrypt php7.0-mysql php7.0-curl
+	sudo apt-get purge -qqq phpmyadmin php-mbstring php-gettext
+	sudo apt-get purge -qqq mysql-server
 	printf "LAMP stack removed ...\n"
 	# Unset casematch
 	shopt -u nocasematch
